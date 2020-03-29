@@ -7,7 +7,7 @@ the react file (live-server) can be run from the public folder, or public/index.
 index.html is connected to file, public/scripts/app.js
 
 Code in public/scripts/app.js is translated into working ES5 code from js files in  src/ or src/playground via babel.
-The translation will work continuously by typing the following command into terminal,
-(The following command will run the code in src/playground/visibilityToggle.js)
+The translation will work continuously by typing the following command into terminal
+(This command will run the code in src/playground/visibilityToggle.js)
 > babel src/playground/visibilityToggle.js --out-file=public/scripts/app.js --presets=env,react --watch
 
