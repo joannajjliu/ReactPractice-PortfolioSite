@@ -22,10 +22,35 @@ class IndecisionApp extends React.Component {
         this.handleAddOption = this.handleAddOption.bind(this);
         this.handleDeleteOption = this.handleDeleteOption.bind(this);
         this.state = {
-            options: props.options,
+            options: [],
             selectedOption: ''
         };
     };
+    componentDidMount() { //localStorage: fetch data
+        try {
+            const json = localStorage.getItem("options");
+            const options = JSON.parse(json); //if error occurs here
+            if (options) {
+                this.setState(() => ({ options }));
+            }
+        } catch (e) {
+            //do nothing -> keep this.state.options as null
+        }
+        console.log("fetching data: componentDidMount");
+    }
+    componentDidUpdate(prevProps, prevState) { //localStorage: save data
+        console.log("this.state.options: ", this.state.options);    
+        if (prevState.options.length !== this.state.options.length) {
+            console.log("prevState.options: ", prevState.options);
+            const json = JSON.stringify(this.state.options);
+            localStorage.setItem('options', json);
+
+            console.log("saving data: componentDidUpdate");
+        };
+    }
+    componentWillUnmount() {
+        console.log('componentWillUnmount');
+    }
     handleDeleteOptions() {
         this.setState(() => ({
             options: [],
@@ -78,9 +103,9 @@ class IndecisionApp extends React.Component {
     }
 };
 
-IndecisionApp.defaultProps = {
-    options: []
-};
+// IndecisionApp.defaultProps = { //no longer needed because using localStorage
+//     options: []
+// };
 
 const Header = (props) => {
     return (
@@ -115,16 +140,23 @@ const Options = (props) => {
                 Remove All
             </button>
             <p>The number of options is {props.options.length}</p>
-            <p>Your options are:</p>
-            <ol>
-                {props.options.map(option => {
-                    return <Option 
-                            key={option}
-                            optionText={option}
-                            handleDeleteOption={props.handleDeleteOption}
-                            />
-                })}
-            </ol>
+            {props.options.length === 0 ?
+                <p>Please add an option to get started</p> :
+                (
+                    <div>
+                        <p>Your options are:</p>
+                        <ol>
+                            {props.options.map(option => {
+                                return <Option 
+                                        key={option}
+                                        optionText={option}
+                                        handleDeleteOption={props.handleDeleteOption}
+                                        />
+                            })}
+                        </ol>
+                    </div>
+                )
+            }
         </div>
     );
 };
@@ -160,6 +192,9 @@ class AddOption extends React.Component {
         const input = e.target.elements.option.value.trim();
         const error = this.props.handleAddOption(input);
         this.setState(() => ({error}))
+        if (!error) {
+            e.target.elements.option.value = '';
+        }
     };
 
     render() {
