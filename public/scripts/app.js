@@ -36,7 +36,8 @@ var IndecisionApp = function (_React$Component) {
         _this.handlePick = _this.handlePick.bind(_this);
         _this.handleAddOption = _this.handleAddOption.bind(_this);
         _this.state = {
-            options: ['One', 'Two', 'Three']
+            options: [],
+            selectedOption: ''
         };
         return _this;
     }
@@ -46,7 +47,8 @@ var IndecisionApp = function (_React$Component) {
         value: function handleDeleteOptions() {
             this.setState(function () {
                 return {
-                    options: []
+                    options: [],
+                    selectedOption: ''
                 };
             });
         }
@@ -55,12 +57,26 @@ var IndecisionApp = function (_React$Component) {
         value: function handlePick() {
             var optionNum = Math.floor(Math.random() * this.state.options.length);
             var selectedOption = this.state.options[optionNum];
-            alert(selectedOption);
+            this.setState(function () {
+                return {
+                    selectedOption: selectedOption
+                };
+            });
         }
     }, {
         key: 'handleAddOption',
         value: function handleAddOption(option) {
-            console.log(option);
+            if (!option) {
+                return 'You have not entered a valid option';
+            } else if (this.state.options.indexOf(option) > -1) {
+                return 'This option has already been entered, please try again';
+            }
+            this.setState(function (prevState) {
+                return {
+                    options: prevState.options.concat(option),
+                    selectedOption: ''
+                };
+            });
         }
     }, {
         key: 'render',
@@ -81,7 +97,8 @@ var IndecisionApp = function (_React$Component) {
                     handleDeleteOptions: this.handleDeleteOptions
                 }),
                 React.createElement(AddOption, {
-                    handleAddOption: this.handleAddOption
+                    handleAddOption: this.handleAddOption,
+                    selectedOption: this.state.selectedOption
                 })
             );
         }
@@ -246,6 +263,9 @@ var AddOption = function (_React$Component6) {
         var _this6 = _possibleConstructorReturn(this, (AddOption.__proto__ || Object.getPrototypeOf(AddOption)).call(this, props));
 
         _this6.handleAddOption = _this6.handleAddOption.bind(_this6);
+        _this6.state = {
+            error: undefined
+        };
         return _this6;
     }
 
@@ -255,10 +275,12 @@ var AddOption = function (_React$Component6) {
             e.preventDefault();
 
             var input = e.target.elements.option.value.trim();
-
-            if (input) {
-                this.props.handleAddOption(input);
-            }
+            var error = this.props.handleAddOption(input);
+            this.setState(function () {
+                return {
+                    error: error
+                };
+            });
         }
     }, {
         key: 'render',
@@ -266,6 +288,11 @@ var AddOption = function (_React$Component6) {
             return React.createElement(
                 'div',
                 null,
+                React.createElement(
+                    'p',
+                    { style: { color: 'red' } },
+                    this.state.error
+                ),
                 React.createElement(
                     'form',
                     { onSubmit: this.handleAddOption },
@@ -275,6 +302,12 @@ var AddOption = function (_React$Component6) {
                         null,
                         'Submit Option'
                     )
+                ),
+                this.props.selectedOption && React.createElement(
+                    'p',
+                    { style: { color: 'blue', fontWeight: 'bold' } },
+                    'You should do ',
+                    this.props.selectedOption
                 )
             );
         }
