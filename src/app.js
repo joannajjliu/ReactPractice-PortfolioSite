@@ -56,8 +56,8 @@ class IndecisionApp extends React.Component {
         });
     };
     render() {
-        const title2 = "title-2";
-        const subtitle = "hello this is the subtitle";
+        const title2 = "Indecision App";
+        const subtitle = "Have your computer make decisions for you";
 
         return (
             <div>
