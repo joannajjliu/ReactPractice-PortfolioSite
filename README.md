@@ -1,6 +1,7 @@
 # HelloReactTutorial
 Section 03 - Complete React Developer Udemy Course by Andrew Mead
-The following uses yarn install to install dependencies from package.json into a node_module folder
+The following uses yarn install to install dependencies from package.json into a node_module folder.
+Additionally, global modules need to be installed (not best practice): babel-cli and live-server (optionally, live-server can also be run as an extension in vs code)
 
 Guidelines on running/ using the practice code:
 the react file (live-server) can be run from the public folder, or public/index.html
