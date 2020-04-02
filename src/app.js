@@ -12,31 +12,27 @@ import IndecisionApp from './components/IndecisionApp'
 //     );
 // };
 
+const Layout = (props) => {
+    return (
+        <div>
+            <p>Header</p>
+            {props.children}
+            <p>Footer</p>
+        </div>
+    );
+};
+
 ReactDOM.render(<IndecisionApp options={['Devils den', 'Second district']}/>, document.getElementById("app"));
 
-class OldSyntax {
-    constructor() {
-        this.name = "Jojo";
-        this.getGreeting = this.getGreeting.bind(this);
-    }
-    getGreeting() {
-        return `Hi, my name is ${this.name}.`;
-    }
-}
-const oldSyntax = new OldSyntax();
-console.log(oldSyntax.getGreeting());
+// ReactDOM.render(
+//     <Layout>
+//         <div>
+//             <h1>Page Title</h1>
+//             <p>This is my page</p>
+//         </div> 
+//     </Layout>,
+//  document.getElementById("app"));
 
-//-------------
-
-class NewSyntax {
-    name = "Jojo2"
-    getGreeting = () => {
-        return `Hi, my name is ${this.name}.`;
-    }
-}
-const newSyntax = new NewSyntax();
-const newGetGreeting = newSyntax.getGreeting;
-console.log(newGetGreeting());
 /* Default and named import examples for person.js and utils.js */
 // import validator from 'validator';
 
