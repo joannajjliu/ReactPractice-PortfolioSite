@@ -12,3 +12,6 @@ The translation will work continuously by typing the following command into term
 (This command will run the code in src/playground/visibilityToggle.js)
 > babel src/playground/visibilityToggle.js --out-file=public/scripts/app.js --presets=env,react --watch
 
+---
+- normalize.css dependency: removes default styling by web browsers and OS, allowing for consistent cross-browser styling
+
