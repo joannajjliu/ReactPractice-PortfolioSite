@@ -10,7 +10,11 @@ const OptionModal = (props) => (
     >
         <h3>Selected Option:</h3>
         <p>{props.selectedOption}</p>
-        <button onClick={props.closeModal}>Close Modal</button>
+        <button
+            onClick={props.closeModal}
+        >
+                Close Modal
+        </button>
     </Modal>
 );
 

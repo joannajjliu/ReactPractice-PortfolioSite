@@ -35,10 +35,10 @@ export default class AddOption extends React.Component {
     render() {
         return (
             <div>
-                <p style={{color:'red'}}>{this.state.error}</p>
-                <form onSubmit={this.handleAddOption}>
-                    <input type="text" name="option"/>
-                    <button>Submit Option</button>
+                <p className="add-option-error">{this.state.error}</p>
+                <form className="add-option" onSubmit={this.handleAddOption}>
+                    <input className="add-option__input" type="text" name="option"/>
+                    <button className="button">Submit Option</button>
                 </form>
             {this.props.selectedOption && 
                 <p style={{color:'blue', fontWeight:'bold'}}>You should do {this.props.selectedOption}</p>

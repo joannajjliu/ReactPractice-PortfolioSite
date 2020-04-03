@@ -1,17 +1,16 @@
 import React from 'react';
 
 const Option = (props) => (
-    <div>
-        <li>
-            {props.optionText}
-            <button 
-                onClick={(e) => {
-                    props.handleDeleteOption(props.optionText);
-                }}
-            >
-                Delete Option
-            </button>
-        </li>
+    <div className="option">
+        <p className="option__text">{props.count}. {props.optionText}</p>
+        <button 
+            className="button--link"
+            onClick={(e) => {
+                props.handleDeleteOption(props.optionText);
+            }}
+        >
+            Delete Option
+        </button>
     </div>
 );
 
