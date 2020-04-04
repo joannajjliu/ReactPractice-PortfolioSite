@@ -9,6 +9,7 @@
 //Add Option
 .add-option {
     display: flex;
+    flex-direction: column; //items sit top to bottom
     padding: $m-size;
 }
 
@@ -18,6 +19,16 @@
     border-bottom: 0.3rem solid darken($dark-blue, 10%);
     color: $off-white;
     flex-grow: 1;
-    margin-right: $s-size;
+    margin: 0 0 $s-size 0;
     padding: $s-size;
+}
+
+@media (min-width: $desktop-breakpoint) {//Applies for large devices
+    .add-option {
+        flex-direction: row; //items sit left to right
+    }
+
+    .add-option__input {
+        margin: 0 $s-size 0 0;
+    }
 }

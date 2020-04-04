@@ -7,10 +7,13 @@ const OptionModal = (props) => (
         contentLabel="Selected Option"
         onRequestClose={props.closeModal}
         ariaHideApp={false} //removing element error msg
+        closeTimeoutMS={200}
+        className="modal"
     >
-        <h3>Selected Option:</h3>
-        <p>{props.selectedOption}</p>
+        <h3 className="modal__title">Selected Option:</h3>
+        <p className="modal__body">{props.selectedOption}</p>
         <button
+            className="button"
             onClick={props.closeModal}
         >
                 Close Modal
