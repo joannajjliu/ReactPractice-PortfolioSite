@@ -1,56 +1,69 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import IndecisionApp from './components/IndecisionApp'
+import { BrowserRouter, Switch, Route, Link, NavLink } from "react-router-dom";
 
 import 'normalize.css/normalize.css';
 import './styles/styles.scss';
 
-// const User = (props) => {
-//     return (
-//         <div>
-//             <p>Name: {props.name}</p>
-//             <p>Age: {props.age}</p>
-//         </div>
-//     );
-// };
-
-const Layout = (props) => {
-    return (
+const AppRouter = () => (
+    <BrowserRouter>
         <div>
-            <p>Header</p>
-            {props.children}
-            <p>Footer</p>
+            <Header />
+            <Switch>
+                <Route path="/" component={HomePage} exact={true} />
+                <Route path="/portfolio" component={PortfolioPage} exact={true} />
+                <Route path="/contact" component={ContactPage} />
+                <Route path="/portfolio/:id" component={PortfolioWorkPage} />
+                <Route component={NotFoundPage} />
+            </Switch>
         </div>
-    );
-};
+    </BrowserRouter>  
+);
 
-ReactDOM.render(<IndecisionApp options={['Devils den', 'Second district']}/>, document.getElementById("app"));
+const NotFoundPage = () => (
+    <div>
+        <h1>Not Found</h1>
+        <p>Your search is not found 404!</p>
+    </div>
+);
 
-// ReactDOM.render(
-//     <Layout>
-//         <div>
-//             <h1>Page Title</h1>
-//             <p>This is my page</p>
-//         </div> 
-//     </Layout>,
-//  document.getElementById("app"));
+const Header = () => (
+    <header>
+        <h1>Portfolio</h1>
+        <NavLink to="/" activeClassName="is-active" exact={true}>Home</NavLink>
+        <NavLink to="/portfolio" activeClassName="is-active" exact={true}>Portfolio</NavLink>
+        <NavLink to="/contact" activeClassName="is-active">Contact</NavLink>
+    </header>
+);
 
-/* Default and named import examples for person.js and utils.js */
-// import validator from 'validator';
+const HomePage = () => (
+    <div>
+        <h1>Welcome</h1>
+        <p>This is my site. Take a look around!</p>
+    </div>
+);
 
-// console.log("isEmail: ", validator.isEmail('test@gmail.com'));
+const PortfolioPage = () => (
+    <div>
+        <h1>My Work</h1>
+        <p>Check out the following things I've done:</p>
+        <Link to="/portfolio/1">Item One</Link>
+        <Link to="/portfolio/2">Item Two</Link>
+    </div>
+);
 
-// import theDefaultExport, { add, square } from './utils.js'
+const PortfolioWorkPage = (props) => (
+    <div>
+        <h1>A Thing I've Done</h1>
+        <p>This page is for the idem with id of {props.match.params.id}</p>
+    </div>
+);
 
-// console.log("app.js is running!!!!");
+const ContactPage = () => (
+    <div>
+        <h1>Conact Me</h1>
+        <p>You can reach me at test@gmail.com</p>
+    </div>
+);
 
-// console.log(square(6));
-// console.log(add(200,3));
-// console.log("subtract: ", theDefaultExport(200, 50));
-
-// import isSenior, { canDrink, isAdult } from './person.js';
-
-// console.log('canDrink: ', canDrink(20));
-// console.log('isAdult: ', isAdult(14));
-// console.log('isSenior: ', isSenior(70));
+ReactDOM.render(<AppRouter />, document.getElementById("app"));
